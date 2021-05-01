@@ -103,6 +103,8 @@
 - Framework
     - Django
     - Flask
+- Library
+    - Tensorflow : 예, 아니오에 대한 기준점을 정해주고 데이터를 많이 밀어넣으면 스스로 학습하며 구분해나감
 
 ## PHP
 
