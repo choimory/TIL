@@ -1,0 +1,3 @@
+- row와 col는 분리된 row와 col을 기준으로 전체 row와 col을 파악
+- 테이블을 작성할땐 row기준으로 진행하므로 매 row의 구성 요소를 파악
+- 해당줄에 rowspan된 col이 있을시 rowspan에 해당되는 줄에서는 전체 col이 하나 줄어든다
