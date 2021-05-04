@@ -154,3 +154,159 @@
     - AWS ECS + EKS
         - AWS ECS : 아마존의 EC2를 docker 컨테이너로 구축
         - AWS EKS : 아마존의 완전관리형 kubernetes  제어 서비스
+
+## FTP서버
+
+파일 업로드 및 다운로드에 관련된 서버
+
+- Filezilla - ftp클라이언트
+
+## 웹서버
+
+http 요청을 받으면 미리 작성된 파일을 결과로 응답하는 정적인 서버.
+
+주로 디스크에 보관된 html, css, js등의 파일을 송수신 하는 역할.
+
+서버 컴퓨터에 사용. 서버컴퓨터 대부분 리눅스이므로 주로 리눅스 기반.
+
+주로 서버 미들웨어에 웹서버와 WAS를 같이 배치하여, 웹서버는 정적인 처리 담당, WAS는 동적인 처리 담당으로 용도를 나누어 분산하여 활용함. 웹서버가 앞선에서 정적인 처리를 먼저 해주고 동적인 처리만 WAS로 보낸다.
+
+- nginx - 리눅스
+- ms iis - 마이크로 소프트꺼다보니 윈도우서버의 대표
+- apache http server
+- webtob - 국산. 티맥스 소프트. 국산이다 보니 공공기관에서 활용 장려. 티맥스에서 유지보수 해주며 서버 장애시 책임도 티맥스가 처리함.
+- netscape
+- google web server
+
+## WAS
+
+웹어플리케이션 서버.
+
+웹서버는 요청을 받으면 파일을 결과로 응답하는 정적인 서버.
+
+WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 웹페이지를 재조립해 동적인 페이지를 응답하게 함.
+
+주로 서버 미들웨어에 웹서버와 WAS를 같이 배치하여, 웹서버는 정적인 처리 담당, WAS는 동적인 처리 담당으로 용도를 나누어 분산하여 활용함. 웹서버가 앞선에서 정적인 처리를 먼저 해주고 동적인 처리만 WAS로 보낸다.
+
+대부분의 WAS는 Java가 제공하는 Java EE (J2EE)로 구현되어 있다
+
+- tomcat (명확하게는 웹서버보다는 높고 WAS보다는 낮은 웹컨테이너 정도지만, WAS가 하는 기본적인것들은 수행가능해 WAS로도 많이 인식함)
+- weblogic - 오라클의 was
+- jeus - 국산. 티맥스 소프트. 국산이다 보니 공공기관에서 활용 장려. 티맥스에서 유지보수 해주며 서버 장애시 책임도 티맥스가 처리함.
+- jboss
+- websphere
+
+# CI
+
+소스코드를 지속적으로 통합(Continuous Integeration) 해주는 자동화 툴.
+
+추가/변경된 코드를 자동으로 빌드 후 테스트해주며, 테스트를 통과한 경우에만 공유 리포지토리에 머지함.
+
+여러 개발자가 동시에 코딩을 할때 충돌할 수 있는 문제를 해결해줌.
+
+- jenkins : 자체 서버 컴퓨터가 필요함, 무료
+- traivs ci : cloud시스템. 유료
+- teamcity : jetbrain제품
+- AWS CLI
+- Github Action : 자동화툴
+
+## CD
+
+소스코드를 지속적으로 배포(Continuous Deployment) 해주는 자동화 툴.
+
+리포지토리에 올라온 코드를 자동으로 배포해줌.
+
+- AWS CodeDeploy
+- AWS elastic beanstalk : AWS의 웹앱 배포 및 관리 서비스
+
+# Cloud Computing
+
+클라우드 시스템
+
+## IaaS (Infrastructure as a Service)
+
+서버, 네트워크. 전력 등의 하드웨어 관련 인프라를 제공함.
+
+제공되는 가상머신에 네트워크 설정하고 하드웨어 설정하고 운영체제 설치해서 앱을 올려놓고 구동하고 모니터링함.
+
+- AWS EC2
+
+## PaaS (Platform as a Service)
+
+IaaS에서 한번 더 추상화. 네트워크, 런타임까지 제공.
+
+사용자는 앱만 배포하면 바로 구동 가능하게 함
+
+- AWS Elastic beanstalk
+- Azure AppService
+
+## Serverless
+
+### BaaS (Backend as a Service)
+
+기능들을 API로 제공해줌으로서 백엔드개발 없이 필요기능을 쉽고 빠르게 구현
+
+- Firebase
+
+### FaaS
+
+프로젝트를 함수단위로 쪼개거나 하나의 함수로 만들어, 서버에 함수를 등록하고 함수 호출횟수만큼 비용을 지불
+
+- AWS Lambda
+
+# 그 외
+
+## 형상관리
+
+- tortoise svn
+- github
+
+## 버그 트래킹, 이슈 관리, 협업툴
+
+- jira
+- redmine
+- mantis
+
+## 스케줄링과 배치
+
+Quartz는 스케줄러의 역할이지, Batch 와 같이 대용량 데이터 배치 처리에 대한 기능을 지원하지 않습니다.
+
+반대로 Batch 역시 Quartz의 다양한 스케줄 기능을 지원하지 않아서 보통은 Quartz + Batch를 조합해서 사용합니다.
+
+정해진 스케줄마다 Quartz가 Spring Batch를 실행하는 구조라고 보시면 됩니다.
+
+- spring batch : 대용량 데이터 배치 처리 프레임워크
+- spring quartz : 스케줄링 프레임워크
+
+## IDE
+
+- eclipse
+- intelij
+
+## 검색엔진
+
+- elastic search
+
+## 테스트
+
+테스트 주도 개발 : TDD (Test Driven Development)
+
+TDD를 좀 더 명확히 표현하기 위해 탄생한 표현이 BDD (Behavior Driven Development)
+
+### 테스트 관련툴
+
+- JUnit
+- xUnit
+- Mockito
+- Spock
+
+## CDN
+
+서버 트래픽 부하를 줄이기 위한 이런 저런 기능 제공. 캐싱 시스템
+
+- cloudflare
+
+## 그 외
+
+- kafka : 단순 소량이 아닌 대량 메시지 처리 시스템
+- kibana : 모니터링
