@@ -1,0 +1,4 @@
+- var : ECMA 5 이하에서는 모든 자바스크립트 변수가 var이며, scope는 단순히 선언위치로 구분한다
+- const : ECMA 6 이상의 자바스크립트에서는 전역변수 타입이 const
+- let : ECMA 6 이상의 자바스크립트에서는 지역변수 타입이 let
+- 결론 : ECMA 5 이하는 var만 사용하지만, ECMA 6 이상에서는 변수 선언시 scope에 따라 const, let 두가지의 타입을 사용한다
