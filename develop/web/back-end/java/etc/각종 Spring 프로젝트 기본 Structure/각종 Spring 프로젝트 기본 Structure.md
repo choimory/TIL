@@ -1,0 +1,108 @@
+# Maven Legacy
+
+# Gradle Boot
+
+- 📁src
+    - 📁main
+        - 📁java
+            - 📁com
+                - 📁메인 프로젝트 패키지
+                    - 📁각종 패키지
+                    - 📄메인프로젝트Application.java (메인 스프링 컨테이너 XML 역할)
+                    - 📄각종Apllication.java (스프링 컨테이너 XML 역할, 메인 Application.java와 같은 depth에 위치할것)
+                - 📁그 외 모듈 패키지
+                    - 📁각종 패키지
+                    - 📄모듈프로젝트Application.java (메인 스프링 컨테이너 XML 역할)
+                    - 📄각종Apllication.java (스프링 컨테이너 XML 역할, 메인 Application.java와 같은 depth에 위치할것)
+    - 📁resources
+        - 📄[application.properties](http://application.properties) (각종 부트 설정 파일, web.xml 및 서블릿 컨테이너 역할)
+        - 📁static (정적 리소스)
+            - js, css, font, imgs...
+        - 📁templates (뷰 페이지)
+            - 폴더 및 html 파일들
+        - 📁upload (업로드기능 사용시)
+            - 폴더 및 업로드 파일들
+        - 📁mybatis (ORM사용시)
+        - 📄log.properties, log.xml (logger 사용시)
+    - 📁test
+        - 📁java
+            - main과 동일
+- 📁bin
+    - default
+    - main
+    - test
+- JRE System Library
+    - 자바 라이브러리.jar
+- Project and External Dependencies
+    - 외부 라이브러리.jar
+- 📁gradle
+    - 📁wrapper
+        - gradle-wrapper.jar
+        - gradle-wrapper.properties
+- 📄build.gradle (Maven의 pom.xml 역할)
+- 📄gradlew
+- 📄gradlew.bat
+- 📄HELP.md
+- 📄settings.gradle
+- 📁.gradle
+    - 각종 폴더
+        - 각종 설정
+- 📁.settings
+    - 이클립스 설정파일
+- 📄.classpath
+- 📄.gitignore
+- 📄.project
+
+# Maven Boot
+
+- 📁src
+    - 📁main
+        - 📁java
+            - 📁com
+                - 📁메인 프로젝트 패키지
+                    - 📁각종 패키지
+                    - 📄메인프로젝트Application.java (메인 스프링 컨테이너 XML 역할)
+                    - 📄각종Apllication.java (스프링 컨테이너 XML 역할, 메인 Application.java와 같은 depth에 위치할것)
+                - 📁그 외 모듈 패키지
+                    - 📁각종 패키지
+                    - 📄모듈프로젝트Application.java (메인 스프링 컨테이너 XML 역할)
+                    - 📄각종Apllication.java (스프링 컨테이너 XML 역할, 메인 Application.java와 같은 depth에 위치할것)
+        - 📁resources
+            - 📄[application.properties](http://application.properties) (각종 부트 설정 파일, web.xml 및 서블릿 컨테이너 역할)
+            - 📁static (정적 리소스)
+                - js, css, font, imgs...
+            - 📁templates (뷰 페이지)
+                - 폴더 및 html 파일들
+            - 📁upload (업로드기능 사용시)
+                - 폴더 및 업로드 파일들
+            - 📁mybatis (ORM사용시)
+            - 📄log.properties, log.xml (logger 사용시)
+    - 📁test
+        - 📁java
+            - main과 동일
+    - JRE System Library
+        - 자바 라이브러리.jar
+    - Maven Dependencies
+        - 외부 라이브러리.jar
+    - 📁target
+        - 프로젝트 개발환경 관련 개인설정
+    - 📄HELP.md
+    - 📄mvnw
+    - 📄mvnw.cmd
+    - 📄pom.xml
+    - 📁.mvn
+        - 📁wrapper
+            - maven-wrapper.jar
+            - maven-wrapper.properties
+            - MavenWrapperDownloader.java
+    - 📁.settings
+        - 각종 이클립스 설정 관련 파일
+    - 📄.classpath
+    - 📄.gitignore
+    - 📄.project
+
+# 특이사항
+
+- legacy는 src/main, src/resource, src/webapp 세개의 폴더를 통해 main은 자바 소스코드, resources는 ORM, webapp은 화면 관련 파일들을 관리하였는데, 이럴경우 deploy 되었을 경우에만 화면 관련 정적 리소스를 정상적으로 사용할 수 있다.
+- boot는 webapp을 제거하고 src/main은 자바 소스코드를 관리, src/resources는 화면 관련 파일들을 관리한다. ORM은 JPA를 사용하기에 사용되지 않지만, 사용할 경우 ORM 관련 리소스도 resources내에서 관리한다. main은 자바, resources는 그 외 모든 파일들을 관리한다고 할 수 있다.
+- 개발자 마음에 따라 boot에서도 webapp을 만든 뒤, 설정을 통해 webapp내에서 화면관련 리소스들을 관리, 사용 할 수 있다. jsp를 사용할 수도 있다.
