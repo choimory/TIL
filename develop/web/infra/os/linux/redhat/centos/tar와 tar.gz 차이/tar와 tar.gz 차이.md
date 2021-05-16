@@ -1,0 +1,4 @@
+- tar는 묶어놓기만 하는것, tar.gz는 묶어서 압축까지 하는것
+- tar명령어에 z옵션 추가해주면됨
+    - tar -cvf(xvf) filename.tar
+    - tar -czvf(xzvf) filename.tar.gz
