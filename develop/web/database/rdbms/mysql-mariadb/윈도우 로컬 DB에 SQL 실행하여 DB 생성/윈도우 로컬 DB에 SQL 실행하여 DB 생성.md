@@ -10,8 +10,8 @@
 
 # 명령어 실행
 
-```mysql
-source sql파일경로
+```sql
+source 경로/파일명.sql
 ```
 
 # 확인
