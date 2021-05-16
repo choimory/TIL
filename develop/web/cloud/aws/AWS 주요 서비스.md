@@ -1,0 +1,30 @@
+- AWS EC2
+    - 가상 컴퓨터
+    - 원하는 OS와 접속허용주소, 하드디스크 크기등을 설정하여 가상 컴퓨터를 발급하면 그 가상 컴퓨터 주소를 줌
+    - 그 주소로 ssh나 sftp로 붙어 필요한것을 깔아 서버 등 원하는대로 사용할수 있음
+    - 12개월 무료 이후 자동결제
+- AWS lightsail
+    - 가상 서버
+    - EC2의 간소화버전
+- AWS S3
+    - 저장소
+    - 파일업로드 저장서버를 별도로 분리하고 싶을때
+- AWS DB
+    - RDBMS나 NoSQL등 원하는 DBMS를 선택
+    - 발급하면 AWS계정으로 DB연결시 AWS계정에 부여된 나만의 스키마에 접근가능
+    - 마치 일반 RDBMS의 계정(username)이 주어진것처럼
+    - AWS RDS (RDBMS), DynamoDB (NoSQL), DocumentDB (MongoDB), keyspaces (cassandra)
+- AWS lambda
+    - 서버, 어플리케이션 없이 실행하는 코드
+    - 예시
+        - 람다로 트리거를 설정하면 특정 이벤트가 발생시 람다에 작성한 코드 로직이 실행
+        - 이를테면 A라는 DB에 레코드가 등록되는것에 트리거를 걸어 A에 레코드 등록시 B라는 DB에도 레코드를 등록하도록 코드를 작성
+- AWS CloudFront
+    - CDN
+    - CloudFlare
+- AWS Cloud9
+    - IDE
+- AWS CodeDeploy
+    - CD (Code Deploy, 지속적배포)
+- AWS CodePipeline
+    - CD (Code Delivery, 지속적 전달)
