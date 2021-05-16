@@ -1,0 +1,7 @@
+# 개요
+
+- PK 아닌 컬럼을 AUTO_INCREMENT할시 UNIQUE컬럼으로 지정하고 진행하면 됨
+
+# 예시
+
+- `IDX BIGINT NOT NULL UNIQUE AUTO_INCREMENT`
