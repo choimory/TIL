@@ -1,0 +1,3 @@
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3bc58574-693f-45fc-92a9-69f0fabe46c3/2021-01-04_16_34_40.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/3bc58574-693f-45fc-92a9-69f0fabe46c3/2021-01-04_16_34_40.png)
+
+![https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b64eab69-2692-45c9-b990-c37cf73fe416/2021-01-04_16_34_51.png](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/b64eab69-2692-45c9-b990-c37cf73fe416/2021-01-04_16_34_51.png)
