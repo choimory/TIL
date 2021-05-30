@@ -1,0 +1,9 @@
+- View
+    - 앞에 V나 VW등의 표시를 붙인다.
+    - ex) VW_name, V_name
+- Function
+    - 앞에 FN이나 F 등의 표시.
+    - ex) FN_name, F_name
+- Store Procedure
+    - 앞에 SP의 표시를 붙인다.
+    - ex) SP_name
