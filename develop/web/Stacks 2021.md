@@ -68,6 +68,7 @@
     - Struts
     - Spring
     - Spring boot
+    - Spring batch
 - Persistence Layer
     - ORM
         - Mybatis
@@ -165,6 +166,8 @@
 
 - GraphQL
 - AWS Neptune
+
+---
 
 # Network
 
@@ -315,6 +318,13 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 - Atlassian Jira : 이슈 트래커
 - Atlassian Confluence : 팀 업무
 
+---
+
 # E.T.C
+
+- Apache Kafka : 메시징 브로커
+- Kibanna
+- ELK Stack
+- Elastic search
 
 ---
