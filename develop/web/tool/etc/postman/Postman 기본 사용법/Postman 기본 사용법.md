@@ -5,10 +5,34 @@
 - 계정 동기화를 제공한다
 - 그 외 잘 알지못하는 기능까지 매우 다양한 기능을 제공함
 
+# Workspace
+
+> 많은 Collection들을 Workspace별로 분류할수 있게함
+
+- 회사 별로 나누면 좋음
+    - 회사1, 회사2, 로컬
+    - 회사1-개발1, 회사1-개발2, 로컬-개발1, 로컬-개발2
+
+![img_18.png](img_18.png)
+
+- New → Workspace
+
+![img_19.png](img_19.png)
+
+- Workspace명 및 간단요약 적고 create
+- 공유단위를 선택할 수 있음
+
+![img_20.png](img_20.png)
+
+- 사용할 Workspace 선택
+    
 # Collection
 
 > 많은 Http Request들을 Collection별로 나누어 분류할 수 있게함
-
+> 
+- 개발 별로 나누면 좋음
+    - API1, API2....
+    
 ![img.png](img.png)
 
 - New 선택
