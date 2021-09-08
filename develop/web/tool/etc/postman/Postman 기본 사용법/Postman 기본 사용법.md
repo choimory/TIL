@@ -7,7 +7,7 @@
 
 # Workspace
 
-> 많은 Collection들을 Workspace별로 분류할수 있게함
+> Collection, Request, Environment 등 많은 요소들을 Workspace별로 분류할수 있게함
 
 - 회사 별로 나누면 좋음
     - 회사1, 회사2, 로컬
