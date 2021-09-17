@@ -68,7 +68,8 @@
     - Struts
     - Spring
     - Spring boot
-    - Spring batch
+    - Spring Batch : 대용량 데이터 배치 처리 프레임워크
+    - Quartz : 스케줄링 프레임워크
 - Persistence Layer
     - ORM
         - Mybatis
@@ -80,10 +81,6 @@
     - Maven
     - Gradle
 - Library
-    - Spring Batch : 대용량 데이터 배치 처리 프레임워크
-    - Spring quartz : 스케줄링 프레임워크
-    - Kafka : 대량 메시지 처리 시스템
-    - Kibana : 모니터링
     - API 문서화 라이브러리 (작성한 API 메소드를 자동 문서화해줌)
         - Spring Rest Docs : 코드에 영향 없음, 테스트 성공시 문서생성, 문서가 깔끔함, 적용이 어려움
         - Swagger : API 테스트 화면 제공, 적용이 쉬움, 코드에 어노테이션 추가해야함, 동기화 안될 수 있음
@@ -95,17 +92,20 @@
 
 ## Javascript
 
-- Node.js : 구조상 비동기 요청처리에 좋아서 restful api에 적합함. 비동기로 이루어지는 spa나 동영상스트리밍 사이트 등에 사용.
-    - Express.js : express.js는 Node.js의 웹 프레임워크. Node.js 프로젝트만으로는 제공되는 기본 구조가 아예 없어서 같이 사용됨. (node.js+express.js = Java+Spring)
-    - Nest.js : Express.js가 백엔드만 제시해주는 프레임워크라면, Nest.js는 프론트까지 제시해주는 풀스택 프레임워크. (Express.js + angular.js = Nest.js)
+- Framework
+    - Node.js : 구조상 비동기 요청처리에 좋아서 restful api에 적합함. 비동기로 이루어지는 spa나 동영상스트리밍 사이트 등에 사용.
+        - Express.js : express.js는 Node.js의 웹 프레임워크. Node.js 프로젝트만으로는 제공되는 기본 구조가 아예 없어서 같이 사용됨. (node.js+express.js = Java+Spring)
+        - Nest.js : Express.js가 백엔드만 제시해주는 프레임워크라면, Nest.js는 프론트까지 제시해주는 풀스택 프레임워크. (Express.js + angular.js = Nest.js)
+        - TypeScript
+- Persistence Layer
+    - knex.js
+    - TypeORM
 
 ## Python
 
 - Framework
     - Django
     - Flask
-- Library
-    - Tensorflow : 예, 아니오에 대한 기준점을 정해주고 데이터를 많이 밀어넣으면 스스로 학습하며 구분해나감
 
 ## PHP
 
@@ -166,6 +166,11 @@
 
 - GraphQL
 - AWS Neptune
+- Neo4J
+
+### Search
+
+- Elastic Search
 
 ---
 
@@ -195,7 +200,8 @@
         - Ubuntu
     - Redhat
         - CentOS
-    - Docker + Kubernetes : 하나의 Linux 서버 컴퓨터에서 여러 앱을 효율적으로 관리, 배포하게 해주는 리눅스 가상 컨테이너 기술
+    - Docker : 하나의 Linux 서버 컴퓨터에서 여러 앱을 효율적으로 관리, 배포하게 해주는 리눅스 가상 컨테이너 기술. 컨테이너를 이용해 분리도 할 수 있고 어느 운영체제에서도 서비스 할 수 있음.
+    - Kubernetes : 도커 컨테이너 관리
 - Windows
     - Windows Server : 개구림 쓰레기
 
@@ -244,7 +250,7 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 - Jenkins
 - Travis CI
 - Github action
-- Jetbrain Team city
+- Jetbrains Team city
 
 ---
 
@@ -271,6 +277,7 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 - AWS RDS
 - AWS Dynamo DB
 - AWS Document DB
+- AWS ES Cloud
 - AWS keyspaces
 
 ### CDN
@@ -283,11 +290,13 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 
 - AWS Code Deploy
 - AWS Code Delivery
+- AWS Code Pipe Line
 
 ### 그 외
 
 - AWS Lambda : 앱 없이 실행하는 코드. 특정 이벤트에 대한 트리거를 걸어서 해당 이벤트 발생시 실행할 코드만 작성하면 해당 코드 로직이 실행됨. 이러한 서버 없이 동작하는 시스템을 FaaS(Function as a Service), Serverless라고 함.
 - AWS Cloud9 : 온라인 IDE
+- AWS SNS : AWS 메시지 큐 브로커. 데이터 파이프라인, MSA API간 이벤트에 따른 동기화 등에 쓰임
 
 ---
 
@@ -301,6 +310,7 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 - MySQL Workbench : MySQL 공식 지원 도구
 - Toad for ... :
 - DBeaver
+- Jetbrains Datagrip
 
 ## VCS
 
@@ -317,14 +327,25 @@ WAS는 데이터를 가공하는 연산과 비즈니스 로직을 수행하여 �
 
 - Atlassian Jira : 이슈 트래커
 - Atlassian Confluence : 팀 업무
+- Jetbrains Space
+- Flex
+- Slack
 
 ---
 
 # E.T.C
 
-- Apache Kafka : 메시징 브로커
-- Kibanna
-- ELK Stack
-- Elastic search
+# 분류 전
 
----
+- RabbitMQ : 메시지 큐 브로커. 데이터 파이프라인, MSA API간 이벤트에 따른 동기화 등에 쓰임. 상대적으로 러닝커브 낮으나 기능이 단순명료하고 제한적.
+- Apache Kafka : 메시지 큐 브로커. 데이터 파이프라인, MSA API간 이벤트에 따른 동기화 등에 쓰임. 러닝커브 높고 고스펙.
+- Kibanna : Elastic Search Dev Tools
+- Logstash : Elasitc Search Log 관련 시스템
+- ELK Stack : Elastic Search, Logstash, Kibana를 합친말, 세가지의 궁합이 좋고 같이 가져가는 경우가 많아서 ELK
+- APM 모니터링
+    - 네이버 핀포인트
+    - Datadog
+    - New relic
+    - Influx
+    - Prometheus
+    - Graphite
