@@ -54,9 +54,10 @@ show global variables like 'wait_timeout';
 
 > JDBC4 미만의 경우 Hikari CP라도 DBCP처럼 더미쿼리를 날려 커넥션을 유지하는 방식을 채택하는것을 고려해야한다.
 
-![img_2.png](img_2.png)
+![img_3.png](img_3.png)
 
 - DBCP와 같은 내용으로 `connection-test-query`는 DBCP의 `validationQuery`, `validation-timeout`은 `timeBetweenEvictionRunsMillis`에 대응한다
+- validation-timeout은 ms단위이며 최소 250ms 이상이여야함
 
 # 참고
 
