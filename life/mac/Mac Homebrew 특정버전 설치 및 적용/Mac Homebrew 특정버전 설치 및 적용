@@ -1,0 +1,37 @@
+# 개요
+
+- Homebrew에서 특정 버전의 패키지를 설치하고 적용하는 방법을 알아본다
+- 예시는 node로 진행
+  - 리액트 앱에서 node 및 npm의 버전관리가 매우 민감하기 때문에 이런일이 유독 잦았기 때문에..
+
+# 특정 버전 설치
+
+```shell
+
+brew install node@16
+
+```
+
+- `패키지명@버전`으로 쉽게 설치 할 수 있다
+
+# 적용
+
+```shell
+
+brew link node@16
+
+```
+
+- 설치는 되지만 바로 적용되지 않는다. brew link로 심볼릭 링크를 걸어 해당버전으로 적용시켜주어야 한다
+
+```shell
+
+# 충돌시 --overwrite 옵션으로 덮어쓰며 적용할 수 있다
+brew link --overwrite node@16
+
+# --overwrite 옵션으로 덮어쓰면서 충돌된 내용 제거시 --dry-run 옵션을 추가로 사용할 수 있다
+brew link --overwrite --dry-run node@16
+
+```
+
+- 충돌시 --overwrite 옵션으로 링크를 적용 할 수 있다
