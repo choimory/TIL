@@ -22,7 +22,14 @@ docker network create redis-network
 # docker run (server)
 
 ```docker
-docker run -d -p 6379:6379 -v /Users/choimory/choimory_workspace/mount/redis/choimory/data:/data -v /Users/choimory/choimory_workspace/mount/redis/choimory:/usr/local/etc/redis/redis.cnf --restart unless-stopped --network redis-network --name redis_choimory redis:alpine redis-server --appendonly yes --requirepass "asdqwe123"
+docker run -d -p 6379:6379 \
+-v /Users/choimory/choimory_workspace/mount/redis/choimory/data:/data \
+-v /Users/choimory/choimory_workspace/mount/redis/choimory:/usr/local/etc/redis/redis.cnf \
+--restart unless-stopped \
+--network redis-network \
+--name redis_choimory redis:alpine redis-server \
+--appendonly yes \
+--requirepass "asdqwe123"
 ```
 
 - - p : 레디스의 기본포트
