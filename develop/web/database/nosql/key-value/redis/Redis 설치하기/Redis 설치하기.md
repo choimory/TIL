@@ -23,8 +23,8 @@ docker network create redis-network
 
 ```docker
 docker run -d -p 6379:6379 \
--v /Users/choimory/choimory_workspace/mount/redis/choimory/data:/data \
--v /Users/choimory/choimory_workspace/mount/redis/choimory:/usr/local/etc/redis/redis.cnf \
+-v /Users/choimory/choimory_workspace/database/choimory/redis_choimory/data:/data \
+-v /Users/choimory/choimory_workspace/database/choimory/redis_choimory/config:/usr/local/etc/redis/redis.cnf \
 --restart unless-stopped \
 --network redis-network \
 --name redis_choimory redis:alpine redis-server \
