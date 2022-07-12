@@ -11,6 +11,6 @@
 
 # utf8mb4_bin | utf8mb4_general_ci
 
-- bin과 general_ci의 차이는 대소문자 구분 여부
+- bin과 general_ci의 차이는 대소문자 구분 여부이다.
   - e.g id값이 ABC인 컬럼에 `where id = 'abc'`했을시, general_ci는 조건에 충족하며 bin은 충족되지 않는다. 
 - general_ci가 현재 utf8mb4 기본 collation이다.
