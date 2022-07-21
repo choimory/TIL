@@ -24,9 +24,40 @@
 
 # LazyInitializeException
 
+- 지연로딩으로 설정된 연관관계를 추가적으로 가져오려는데 엔티티가 비영속화 되어 프록시 세션이 해제되어 있는 상태일때 발생
+- fetch join은 지연로딩으로 설정된 연관관계 엔티티를 추가적으로(N+1) 불러오는게 아닌, 한번에 불러오기 때문에 지연로딩 초기화 관련 예외가 발생하지 않음.
+
 # @Query
 
+> join 뒤에 fetch를 붙여 페치조인을 사용 가능
+
+```java
+public interface TeamRepository extends JpaRepository<Team, Long> {
+    @Query("SELECT t FROM Team t JOIN FETCH t.member m JOIN FETCH m.memberAuthority ma")
+    List<Team> getTeams();
+}
+```
+
+- Inner join으로 연관관계를 가져옴
+- 다만 주 엔티티의 연관관계 엔티티가 많아지면 해당 연관관계를 모두 쿼리에 표현해야 하는것이 매우 불편해질 수 있다는 단점이 있다
+- 그럴땐 EntityGraph를 사용할 수 있음
+
 # @EntityGraph
+
+```java
+public interface TeamRepository extends JpaRepository<Team, Long> {
+    @EntityGraph(attributePaths = {"member", "member.authority"})
+    @Query("SELECT t FROM Team")
+    List<Team> getTeams();
+}
+```
+
+- Left Join으로 결과를 가져옴
+- 쿼리에 많은 연관관계를 모두 fetch join으로 쓰기 번거로울때 사용
+
+# @Query와 @EntityGraph 주의사항
+
+- 둘 다 조인으로 연관관계까지 가져오므로 주체 엔티티가 중복되어 쌓이므로 결과를 Set으로 받거나, 쿼리에 distinct처리가 필요함
 
 # Querydsl
 
