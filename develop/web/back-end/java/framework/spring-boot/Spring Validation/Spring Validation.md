@@ -160,3 +160,14 @@ public CommonResponse<List<CommonNotValidResponse>> constraintViolationException
 - ConstraintViolationException의 getConstraintViolations에 Valid에 걸린 모든 요청관련 정보가 담겨있다
 - 요청값과 메시지는 문제가 없으니 필드정보를 찾지 못했다... getPropertyPath의 NodeImpl 객체에 담겨있는듯 한데 꺼내기 쉽지 않아 toString으로 일단..
     - 이때 필드 외 컨트롤러 메소드명이 노출되는것이 꺼름칙한데 방법이 없을까..
+  
+# 그 외
+
+- 요청 페이로드와 파라미터에 대한 검증 실패 각각 예외가 다르다보니 핸들러도 분기가 된다.
+- 하나로 합쳐지면 좋을것 같은데..
+
+# 참고
+
+- [https://jyami.tistory.com/55](https://jyami.tistory.com/55)
+- [https://kapentaz.github.io/spring/Spring-Boo-Bean-Validation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90/#](https://kapentaz.github.io/spring/Spring-Boo-Bean-Validation-%EC%A0%9C%EB%8C%80%EB%A1%9C-%EC%95%8C%EA%B3%A0-%EC%93%B0%EC%9E%90/#)
+- [https://stackoverflow.com/questions/57667044/how-to-apply-validation-to-elements-of-a-collection-type](https://stackoverflow.com/questions/57667044/how-to-apply-validation-to-elements-of-a-collection-type)
