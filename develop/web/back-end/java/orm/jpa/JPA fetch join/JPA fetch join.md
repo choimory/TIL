@@ -3,6 +3,7 @@
 - fetch join은 지연로딩으로 설정된 연관관계 엔티티를, 주체가 되는 부모 엔티티를 조회할때 연관관계 엔티티도 한번에 같이 조회해오는 JPA 지원 조인 방식이다.
 - fetch join으로 연관관계 엔티티별로 쿼리가 불어나는 N+1 현상, 지연로딩 초기화 예외 등을 방지할 수 있다.
 - fetch join은 보통 N+1으로 인행 한번에 수행되는 쿼리가 너무 많을수 있는 경우, 연관관계 엔티티의 데이터도 활용되어야 할때 등에 사용할 수 있다.
+- 1:N 연관관계 엔티티는 하나의 엔티티만 fetch join이 가능하며, 이를 해결하기 위해 default_batch_fetch_size를 설정할 수 있다.
 
 # 상세
 
@@ -33,12 +34,13 @@
 
 ```java
 public interface TeamRepository extends JpaRepository<Team, Long> {
-    @Query("SELECT t FROM Team t JOIN FETCH t.member m JOIN FETCH m.memberAuthority ma")
+    @Query("SELECT DISTINCT t FROM Team t JOIN FETCH t.member m JOIN FETCH m.memberAuthority ma")
     List<Team> getTeams();
 }
 ```
 
 - Inner join으로 연관관계를 가져옴
+- 하나의 1:N 연관관계 엔티티만 fetch join 가능
 - 다만 주 엔티티의 연관관계 엔티티가 많아지면 해당 연관관계를 모두 쿼리에 표현해야 하는것이 매우 불편해질 수 있다는 단점이 있다
 - 그럴땐 EntityGraph를 사용할 수 있음
 
@@ -47,21 +49,42 @@ public interface TeamRepository extends JpaRepository<Team, Long> {
 ```java
 public interface TeamRepository extends JpaRepository<Team, Long> {
     @EntityGraph(attributePaths = {"member", "member.authority"})
-    @Query("SELECT t FROM Team")
+    @Query("SELECT DISTINCT t FROM Team")
     List<Team> getTeams();
 }
 ```
 
 - Left Join으로 결과를 가져옴
-- 쿼리에 많은 연관관계를 모두 fetch join으로 쓰기 번거로울때 사용
+- 하나의 1:N 연관관계 엔티티만 fetch join 가능
+- 쿼리에 주체 엔티티의 하위 엔티티, 하위 엔티티의 하위 엔티티등 많은 엔티들을 모두 fetch join으로 쓰기 번거로울때 사용
 
 # @Query와 @EntityGraph 주의사항
 
-- 둘 다 조인으로 연관관계까지 가져오므로 주체 엔티티가 중복되어 쌓이므로 결과를 Set으로 받거나, 쿼리에 distinct처리가 필요함
+- 둘 다 조인으로 연관관계까지 가져오므로 주체 엔티티가 중복되어 쌓이므로 결과를 Set으로 받거나, 쿼리에 distinct 처리가 필요함
 
 # Querydsl
 
+```java
+return query
+        .selectFrom(team)
+        .join(team.book, book).fetchJoin()
+        .fetch();
+```
+
+- join() 뒤에 fetchJoin()을 체이닝하여 호출한다.
+
 # spring.jpa.properties.hibernate.default_batch_fetch_size
+
+```yaml
+spring:
+  jpa:
+    properties:
+      hibernate.default_batch_fetch_size: 1000
+```
+
+- fetch join의 주의사항은 1:N 연관관계의 fetch join은 단 한번만 사용 가능하다는것
+- 주체 엔티티 A의 1:N 엔티티 B, C를 동시에 fetch join 하려할시 `MultiBagFecthException`이 발생한다
+- 보통은 1000개 밑으로 지정하며, 1000개 넘게 설정하지 않는다.
 
 # 참고
 
