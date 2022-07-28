@@ -202,6 +202,28 @@ public class repo {
 }
 ```
 
+## 단일 컬럼만 조회해서 리턴하기
+
+```java
+@Repository
+@RequiredArgsConstructor
+public class repo {
+  private final QueryFactory query;
+
+  @Override
+  public List<String> findIdentityByMembersId(List<Integer> membersId) {
+    return query.select(Projections.constructor(String.class, 
+            member.identity))
+            .from(member)
+            .where(member.id.in(membersId))
+            .limit(size)
+            .fetch();
+  }
+}
+```
+
+- 단일 컬럼만 조회하여 해당 타입을 리턴할때 주의할 점은, 래퍼 클래스의 특징을 고려했을때 Projections.fields 대신 constructor를 사용해야 한다는것 
+
 ## DTO 안의 객체에 매핑하기
 
 - `MemberDto`내의 `MemberAuthorityDto` 필드를 매핑해보자
@@ -270,7 +292,7 @@ public class repo {
 }
 ```
 
-- Projections 안에 추가로 Projections를 넣어주고 as로 alias를 지정해주면 된다
+- Projections 안에 추가로 Projections를 넣어주고 as로 필드명과 동일한 alias를 지정해주면 된다
 
 ## DTO 안의 컬렉션 객체에 매핑하기
 
@@ -322,29 +344,19 @@ public class repo {
   
   @Override
   public List<MemberDto> findAllNoOffset(int lastId, int size, String identity, String nickname, String email, AuthLevel authLevel, LocalDateTime createdFrom, LocalDateTime createdTo, LocalDateTime modifiedFrom, LocalDateTime modifiedTo, LocalDateTime deletedFrom, LocalDateTime deletedTo) {
-        /*return query.select(Projections.fields(MemberDto.class,
-                member.identity,
-                Projections.fields(MemberDto.MemberAuthorityDto.class,
-                        memberAuthority.authLevel).as("memberAuthority")),
-                Projections.list(Projections.fields(MemberDto.MemberSocialDto.class,
-                        memberSocial.socialType,
-                        memberSocial.socialId).as("memberSocials")))
-                .from(member)
-                .innerJoin(member.memberAuthority, memberAuthority)
-                .where(gtId(lastId),
-                        eqIdentity(identity),
-                        containsNickname(nickname),
-                        containsEmail(email),
-                        eqAuthLevel(authLevel),
-                        betweenCreatedAt(createdFrom, createdTo),
-                        betweenModifiedAt(modifiedFrom, modifiedTo),
-                        betweenDeletedAt(deletedFrom, deletedTo))
-                .limit(size)
-                .fetch();*/
-
-    return query.selectFrom(member)
-            .innerJoin(member.memberAuthority, memberAuthority)
-            .leftJoin(member.memberSocials, memberSocial)
+    return query.select(
+            Projections.fields(MemberDto.class,
+                    member.id,
+                    member.identity,
+                    member.nickname,
+                    Projections.fields(MemberDto.MemberAuthorityDto.class,
+                            memberAuthority.authLevel).as("memberAuthority")
+            ),
+            Projections.list(
+                    memberSocial.socialType,
+                    memberSocial.socialId)
+    )
+            .from(member)
             .where(gtId(lastId),
                     eqIdentity(identity),
                     containsNickname(nickname),
@@ -353,36 +365,43 @@ public class repo {
                     betweenCreatedAt(createdFrom, createdTo),
                     betweenModifiedAt(modifiedFrom, modifiedTo),
                     betweenDeletedAt(deletedFrom, deletedTo))
-            .limit(size)
-            .transform(GroupBy.groupBy(member.id)
-                    .list(Projections.fields(MemberDto.class,
-                            member.identity,
-                            Projections.fields(MemberDto.MemberAuthorityDto.class,
-                                    memberAuthority.authLevel).as("memberAuthority"),
-                            /*Projections.fields(MemberDto.MemberSocialDto.class,
-                                    memberSocial.socialType,
-                                    memberSocial.socialId).as("memberSocials"),
-                            Projections.list(Projections.fields(MemberDto.MemberSocialDto.class,
-                                    memberSocial.socialType,
-                                    memberSocial.socialId).as("memberSocials")),*/
-                            GroupBy.list(Projections.fields(MemberDto.MemberSocialDto.class,
-                                    memberSocial.socialType,
-                                    memberSocial.socialId).as("memberSocials"))
-                    )));
+            .innerJoin(member.memberAuthority, memberAuthority)
+            .leftJoin(member.memberSocials, memberSocial)
+            .transform(GroupBy.groupBy(member.identity)
+                    .list(Projections.fields(MemberDto.class, member.id, member.identity, member.nickname,
+                            Projections.fields(MemberDto.MemberAuthorityDto.class, memberAuthority.authLevel).as("memberAuthority"),
+                            GroupBy.list(Projections.fields(MemberDto.MemberSocialDto.class, memberSocial.socialType, memberSocial.socialId)).as("memberSocials"))));
   }
 }
 ```
 
-- 라고 하는데 일단 오류가 나서 안되고 있다(...)
+- 객체가 아닌 컬렉션은 두번에 나눠 처리를 하게 된다.
+  1. 필드 및 1:1 객체는 select절에 `Projection.fields()`내에 바로 매핑처리를 해주고
+  2. 1:N 컬렉션 객체는 select절에 `Projections.list()`로 분리하여 따로 받는다
+    ![img.png](img.png)
+    - 이때 바로 fetch 할시엔 `List<Tuple>`을 받게 되며 `Tuple` 내에는 1번과 2번 항목이 분리되어 들어있다
+    - 하지만 바로 Tuple을 받는것 대신 Querydsl의 `.transform()`을 이용하여 result aggregration 처리하여 바로 매핑 해줄수 있다
+  3. Querydsl의 `.transform()`을 이용하여 result aggregation을 진행해준다
+     - 이때 해야할 작업은 1:N 조인으로 인한 중복 레코드 제거, dto 매핑이다.
+  4. `.transform()`에 먼저 `GroupBy.groupBy(주체엔티티.컬럼)`을 넣어 그룹핑 시켜 중복 레코드를 처리해준다
+    - `.transform(GroupBy.groupBy(member.id))`
+    - 컬렉션을 매핑한다는것은 1:N 조인이 반드시 들어간다는 뜻이고, 결국 카테시안 곱으로 인한 주체 엔티티 중복 레코드가 생성되기 때문에
+  5. GroupBy.list()를 추가로 호출하여 dto 매핑해준다. 이때 GroupBy.list()안에는 매핑 처리할 Projections.fields()들을 작성해주면 된다.
+    - select절과 다른점은 이때는 하나의 Projection.Fields()안에 컬렉션도 모두 기입해준다. 이때 컬렉션은 GroupBy.list()로 매핑해준다 
+  
+# Projections.fields()르 매핑할 시 주의사항
 
-- 불가능하다? 
-  - https://www.inflearn.com/questions/149985
-  - https://stackoverflow.com/questions/66366976/querydsl-how-to-return-dto-list
-- 가능하다?
-  - https://bbuljj.github.io/querydsl/2021/05/17/jpa-querydsl-projection-list.html
-  - https://stackoverflow.com/questions/17116711/collections-in-querydsl-projections
-  - 첫번째로 컬렉션을 조회한다는것은 1:N 관계의 테이블을 조회한다는점이므로 join이 들어간다는 뜻이 된다
-  - 때문에 카테시안 곱으로 인해 주체 엔티티가 중복 조회되므로, distinct 혹은 groupby 처리가 들어가야 한다
-    - 이때 groupby 쿼리를 날리는것보단 querydsl의 transfrom()을 이용해 후처리하는것이 성능 상 최선인것처럼 보인다
-    - 하지만 이것 역시 성능상 이점을 가져가는것은 아니므로.. 된다고 해도 조회할 필드를 최소화한 뒤, 별도의 조회용 객체를 만들고 그 필드는 최대한 flat하게 최소한으로 설계하는것이 사실은 가장 바람직할 것 같다
-      - 즉 이렇게까지 쿼리를 짜는것 자체가 결국은 Projections로 골라서 조회해도 성능상 이점은 크게 죽을것 같다..
+- 매핑을 엔티티가 아닌 DTO 클래스로 할 경우 fetchJoin()을 사용할 수 없다.
+  - 페치조인은 엔티티 그래프를 참고하는것이기 때문에!
+
+### 관련 참고 문서
+
+- [https://www.inflearn.com/questions/149985](https://www.inflearn.com/questions/149985)
+- [https://jojoldu.tistory.com/342](https://jojoldu.tistory.com/342)
+- [https://stackoverflow.com/questions/66366976/querydsl-how-to-return-dto-list](https://stackoverflow.com/questions/66366976/querydsl-how-to-return-dto-list)
+- [https://bbuljj.github.io/querydsl/2021/05/17/jpa-querydsl-projection-list.html](https://bbuljj.github.io/querydsl/2021/05/17/jpa-querydsl-projection-list.html)
+- [https://stackoverflow.com/questions/17116711/collections-in-querydsl-projections](https://stackoverflow.com/questions/17116711/collections-in-querydsl-projections)
+
+# 참고
+
+- https://github.com/choimory/item-value-checker-user-api

@@ -90,6 +90,7 @@ spring:
 
 - [https://jojoldu.tistory.com/165](https://jojoldu.tistory.com/165)
 - [https://jojoldu.tistory.com/457](https://jojoldu.tistory.com/457)
+- [https://www.inflearn.com/questions/39516](https://www.inflearn.com/questions/39516)
 - [https://cobbybb.tistory.com/18](https://cobbybb.tistory.com/18)
 - [https://www.popit.kr/jpa-n1-%EB%B0%9C%EC%83%9D%EC%9B%90%EC%9D%B8%EA%B3%BC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95/](https://www.popit.kr/jpa-n1-%EB%B0%9C%EC%83%9D%EC%9B%90%EC%9D%B8%EA%B3%BC-%ED%95%B4%EA%B2%B0-%EB%B0%A9%EB%B2%95/)
 - [https://itmoon.tistory.com/77](https://itmoon.tistory.com/77)
