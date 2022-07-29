@@ -58,7 +58,18 @@ brew install curl
 ```
 
 - [https://iterm2colorschemes.com/](https://iterm2colorschemes.com/)에서 원하는 색상 preset 클릭
-    - 추천 color : espresso, adventure, after glow, authur, blazer, bultin pastel dark, bultin solarized dark, challenger deep, ciapre, doomone, fideloper, hacktober, iceberg
+    - 추천 color
+      - overnight slumber
+      - mathias
+      - adventure
+      - blazer
+      - breeze
+      - brogrammer
+      - forestblue
+      - hacktober
+      - tomorrow night bright
+      - iceberg dark
+      - 그 외: espresso, after glow, authur, bultin pastel dark, bultin solarized dark, challenger deep, ciapre, doomone, fideloper
 - curl을 이용하여 해당 색상 preset 코드를 다운로드
 
 ```bash
