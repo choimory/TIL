@@ -1,3 +1,7 @@
+# TODO
+
+---
+
 - npm은 node.js의 패키지로 node.js 설치시 같이 설치됨
 - cmd 터미널에서 실행함
 
