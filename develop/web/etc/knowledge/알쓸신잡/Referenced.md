@@ -1,0 +1,4 @@
+- [https://github.com/WeareSoft/tech-interview](https://github.com/WeareSoft/tech-interview)
+- [배민 테크톡]()
+- [https://gmlwjd9405.github.io](https://gmlwjd9405.github.io)
+- [OSI 7 Layers](https://yoonix.tistory.com/10)
