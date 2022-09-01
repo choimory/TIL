@@ -1,10 +1,10 @@
 # 목차
 
 - [Java SE와 EE의 차이](#-java-se와-ee의-차이)
-- [Java와 CPP의 차이](# Java와 CPP의 차이)
+- [Java와 CPP의 차이](#-Java와-CPP의-차이)
 - [Java의 장단점](# Java의 장단점)
 - [Java의 접근 제어자 종류](# Java의 접근 제어자 종류)
-- [static](# static)
+- [static](#-static)
 - [Java 데이터 타입](# Java 데이터 타입)
 - [Wrapper class](# Wrapper class)
 - [OOP 특징](# OOP 특징)
