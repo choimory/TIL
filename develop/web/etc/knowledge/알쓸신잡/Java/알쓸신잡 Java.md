@@ -1,7 +1,42 @@
+# 목차
+
+- [Java SE와 EE의 차이](#-java-se와-ee의-차이)
+- [Java와 CPP의 차이](# Java와 CPP의 차이)
+- [Java의 장단점](# Java의 장단점)
+- [Java의 접근 제어자 종류](# Java의 접근 제어자 종류)
+- [static](# static)
+- [Java 데이터 타입](# Java 데이터 타입)
+- [Wrapper class](# Wrapper class)
+- [OOP 특징](# OOP 특징)
+- [OOP 5대 원칙 (SOLID)](# OOP 5대 원칙 (SOLID))
+- [객체지향과 절차지향의 차이](# 객체지향과 절차지향의 차이)
+- [Java 인스턴스 필드와 static 필드의 차이](# Java 인스턴스 필드와 static 필드의 차이)
+- [Java 메인 메소드가 static인 이유](# Java 메인 메소드가 static인 이유)
+- [Java의 static 메모리 활용 방식](# Java의 static 메모리 활용 방식)
+- [Java의 final, finally, finalize](# Java의 final, finally, finalize)
+- [직렬화와 역직렬화](# 직렬화와 역직렬화)
+- [클래스, 객체, 인스턴스의 차이](# 클래스, 객체, 인스턴스의 차이)
+- [오버로딩과 오버라이딩의 차이](# 오버로딩과 오버라이딩의 차이)
+- [Call by Ref와 Call by Value의 차이](# Call by Ref와 Call by Value의 차이)
+- [인터페이스와 추상 클래스의 차이](# 인터페이스와 추상 클래스의 차이)
+- [JVM 구조](# JVM 구조)
+- [String, StringBuffer, StringBuilder](# String, StringBuffer, StringBuilder)
+- [동기화와 비동기화의 차이](# 동기화와 비동기화의 차이)
+- [Java에서 ==와 equals()의 차이](# Java에서 ==와 equals()의 차이)
+- [Java의 리플렉션](# Java의 리플렉션)
+- [Lambda](# Lambda)
+- [Stream](# Stream)
+- [동기화, 비동기화](# 동기화, 비동기화)
+- [Annotation](# Annotation)
+- [GC 처리 방법](# GC 처리 방법)
+- [제네릭스](#-제네릭스)
+
+---
+
 # Java SE와 EE의 차이
 
-- SE: Standard Edition
-- EE: Enterprise Edition
+- SE: Standard Edition, 기본적인 JDK만 포함
+- EE: Enterprise Edition, 모든 JDK 포함
 
 ---
 
@@ -72,6 +107,12 @@
 
 # OOP 5대 원칙 (SOLID)
 
+- S:
+- O:
+- L:
+- I:
+- D:
+
 ---
 
 # 객체지향과 절차지향의 차이
@@ -79,6 +120,13 @@
 ---
 
 # Java 인스턴스 필드와 static 필드의 차이
+
+- 인스턴스 필드
+  - 인스턴스마다 값이 변해야 되는 경우
+  - 스프링 컨텍스트로부터 인스턴스를 주입받아야 하는 경우
+- static 핃르
+  - 모든 인스턴스가 같은 값을 고정적으로 사용하는 경우
+  - 주입받을 필요 없이 사전부터 초기화되어 사용되는 경우
 
 ---
 
@@ -88,9 +136,15 @@
 
 # Java의 static 메모리 활용 방식
 
+- JVM Method Area에 static 하나만 올려놓고 범용적으로 사용
+
 ---
 
 # Java의 final, finally, finalize
+
+- final: 초기화 이후 값이 변해지는것을 금지
+- finally: try catch 이후 공통적으로 수행되어야 하는 로직을 수행
+- finalize: 특정 인스턴스의 종료 메소드
 
 ---
 
@@ -104,25 +158,58 @@
 
 # 오버로딩과 오버라이딩의 차이
 
+- 오버로딩: 같은 메소드를 다른 파라미터로 여러개 만드는것
+- 오버라이딩: 상속받은 메소드를 재정의하는것
+
 ---
 
 # Call by Ref와 Call by Value의 차이
+
+- 
 
 ---
 
 # 인터페이스와 추상 클래스의 차이
 
+- 인터페이스는 상수와 public 메소드 선언, default 메소드 작성만 가능하다
+- 추상 클래스는 일반 클래스와 비슷하게 작성이 가능하나, 구현이 필요한 메소드가 하나라도 있을경우 추상클래스 선언이 가능하다
+- 고로 인터페이스가 더 제한적이며, 더 많은 구현을 필요로 하므로 미리 구현해야 할 메소드나 필드가 있을 경우 추상클래스를, 그렇지 않은 경우 인터페이스 사용을 고려 할 수 있다.
+
 ---
 
 # JVM 구조
+
+## Method Area
+
+- 클래스 메타 데이터, static 데이터 등이 올라간다
+
+## Stack Area
+
+- 메소드 실행 정보 및 지역변수 등이 올라간다
+- Stack 형태로 되어 있어, FILO이다.
+
+## Heap Area
+
+- 인스턴스 생성 정보가 올라간다
+- 주소 형태로 관리되며, 모든 참조형 변수는 Heap Area의 주소가 저장된다
+- 참조되지 않는 인스턴스는 GC에 의해 정리된다
 
 ---
 
 # String, StringBuffer, StringBuilder
 
+## String
+
+## StringBuffer
+
+## StringBuilder
+
 ---
 
 # 동기화와 비동기화의 차이
+
+- async
+- synchronized
 
 ---
 
@@ -139,10 +226,6 @@
 ---
 
 # Stream
-
----
-
-# 동기화, 비동기화
 
 ---
 
