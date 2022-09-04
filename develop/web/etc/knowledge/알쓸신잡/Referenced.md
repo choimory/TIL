@@ -2,3 +2,8 @@
 - [배민 테크톡]()
 - [https://gmlwjd9405.github.io](https://gmlwjd9405.github.io)
 - [OSI 7 Layers](https://yoonix.tistory.com/10)
+- [jwt](http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
+- [쿠키, 세션, 토큰, stateless](https://www.youtube.com/watch?v=tosLBcAX1vk&t=31s)
+- [https](https://www.youtube.com/watch?v=Il3xLZ4b7NM&t=515s)
+- [CORS](https://www.youtube.com/watch?v=7iGIfcEsc2g&t=2s)
+- [http method, status](https://www.youtube.com/watch?v=QcKEJFvPryI&t=210s)
