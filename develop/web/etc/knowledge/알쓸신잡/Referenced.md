@@ -1,5 +1,5 @@
 - [https://github.com/WeareSoft/tech-interview](https://github.com/WeareSoft/tech-interview)
-- [배민 테크톡]()
+- [배민 테코톡](https://www.youtube.com/playlist?list=PLgXGHBqgT2TvpJ_p9L_yZKPifgdBOzdVH)
 - [https://gmlwjd9405.github.io](https://gmlwjd9405.github.io)
 - [OSI 7 Layers](https://yoonix.tistory.com/10)
 - [jwt](http://www.opennaru.com/opennaru-blog/jwt-json-web-token/)
@@ -9,3 +9,4 @@
 - [CORS](https://www.youtube.com/watch?v=7iGIfcEsc2g&t=2s)
 - [http method, status](https://www.youtube.com/watch?v=QcKEJFvPryI&t=210s)
 - [TCP, UDP](https://fudadak-usful.tistory.com/56)
+- [DNS](https://opentutorials.org/module/288/2802)
