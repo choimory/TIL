@@ -1,5 +1,14 @@
 # TODO
 
+- JWT 구조
+- JWT 인증방식
+- JWT 사용 이유
+- JWT 생성 및 검증
+- JWT 401 핸들링 클래스 작성
+- JWT 403 핸들링 클래스 작성
+- Spring Security 구조
+- Spring Security 권한 적용하기
+
 ---
 
 # 들어가며
