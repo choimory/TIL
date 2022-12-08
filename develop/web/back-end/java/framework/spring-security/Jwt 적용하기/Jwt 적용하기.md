@@ -15,7 +15,12 @@
 
 # JWT 관련 선수지식
 
+- JWT는 Header.Payload.Signature 세가지로 구성되어 있으며 .으로 구분함
+    - e.g. aaa.bbb.ccc
+
 # 스프링 시큐리티 관련 선수지식
+
+- filter에서 권한을 확인하고 처리해줄수 있음
 
 # 작성 및 적용
 
