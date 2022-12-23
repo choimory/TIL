@@ -392,12 +392,12 @@ public class repo {
   5. GroupBy.list()를 추가로 호출하여 dto 매핑해준다. 이때 GroupBy.list()안에는 매핑 처리할 Projections.fields()들을 작성해주면 됩니다.
   - select절과 다른점은 이때는 하나의 Projection.Fields()안에 컬렉션도 모두 기입해준다. 이때 컬렉션은 GroupBy.list()로 매핑해줍니다
 
-# Projections.fields()르 매핑할 시 주의사항
+# Projections.fields()를 매핑할 시 주의사항
 
 - 매핑을 엔티티가 아닌 DTO 클래스로 할 경우 fetchJoin()을 사용할 수 없습니다.
   - 페치조인은 엔티티 그래프를 참고하는것이기 때문에 엔티티가 아닌 클래스를 projection 한 경우 사용할 수 없습니다
 
-### 관련 참고 문서
+# 관련 참고 문서
 
 - [https://www.inflearn.com/questions/149985](https://www.inflearn.com/questions/149985)
 - [https://jojoldu.tistory.com/342](https://jojoldu.tistory.com/342)
@@ -405,6 +405,6 @@ public class repo {
 - [https://bbuljj.github.io/querydsl/2021/05/17/jpa-querydsl-projection-list.html](https://bbuljj.github.io/querydsl/2021/05/17/jpa-querydsl-projection-list.html)
 - [https://stackoverflow.com/questions/17116711/collections-in-querydsl-projections](https://stackoverflow.com/questions/17116711/collections-in-querydsl-projections)
 
-# 참고
+# 소스코드
 
 - https://github.com/choimory/item-value-checker-user-api
