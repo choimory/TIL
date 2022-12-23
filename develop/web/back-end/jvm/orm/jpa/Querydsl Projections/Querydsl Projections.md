@@ -1,25 +1,28 @@
 # 개요
 
-- Querydsl Projections에 대해 알아본다
+- 기본적으로 JPA 엔티티에는 Hibernate 1차 캐싱 등이 걸려있어 엔티티를 그대로 다룰시 성능하락이 있을수 있습니다.
+- 때문에 특별한 상황이 아닌 단순한 상황에서는, 엔티티를 별도의 객체로 바로 변환하여 해당 객체를 이용하는게 성능상 이득이 있습니다
+- 또한 조회할때 필요한 컬럼만 select하여 조회하는것도 성능 상승에 아주 큰 요소가 됩니다
+- Querydsl의 Projections는 위의 두 문제를 처리해주는 기능입니다
 
 # Querydsl Projections을 권장한다
 
-- 기본 엔티티를 넘기는것보다 Projections를 통해 매핑한 DTO 등의 객체를 넘기는것을 권장한다.
-  - 이는 서비스단에서 매핑 작업을 추가적으로 거치는것보다 성능상으로 이득이 있기 때문이다.
+- 기본 엔티티를 넘기는것보다 Projections를 통해 매핑한 DTO 등의 객체를 넘기는것을 권장합다.
+  - 이는 서비스단에서 매핑 작업을 추가적으로 거치는것보다 성능상으로 이득이 있기 때문입니다.
     - 필요한 컬럼만 조회할 수 있다는 점.
-    - 엔티티를 건내면 Hibernate 1차 캐싱이 적용되어 성능이 하락되므로, 엔티티 대신 DTO로 바로 건내주는것에 이득이 있다. 
+    - 엔티티를 건내면 Hibernate 1차 캐싱이 적용되어 성능이 하락되므로, 엔티티 대신 DTO로 바로 건내주는것에 이득이 있다.
 
 # Querydsl Projections의 종류
 
-- Projections에는 constructor, fields, bean 세가지가 존재하며 각각의 유의사항이 있다.
+- Projections에는 constructor, fields, bean 세가지가 존재하며 각각의 유의사항이 있습니다.
 
 ## Projections.constructor
 
-- 생성자를 통해 객체를 생성한다
-- 주의사항: 생성자를 빌더패턴으로 적용하였다 하더라도 특정 필드만 초기화하는것이 불가능하다.
-  - Projections.constructor()를 통해 특정 필드만 초기화하고 싶을시, 해당 필드들을 넘겨받는 생성자를 선언해야 한다.
-    - 상황에 따라 동적으로 하고 싶을땐 케이스별로 모든 생성자가 있어야 한다. 빌더로는 불가능.
-  - 결국 Projections.constructor()를 통해 동적으로 원하는 필드만 주입하는것이 사실상 매우 번거롭기 때문에 전체 필드를 초기화하는 경우에만 사용한다.
+- 생성자를 통해 객체를 생성합니다
+- 주의사항: 생성자를 빌더패턴으로 적용하였다 하더라도 특정 필드만 초기화하는것이 불가능합니다.
+  - Projections.constructor()를 통해 특정 필드만 초기화하고 싶을시, 해당 필드들을 넘겨받는 생성자를 선언해야 합니다.
+    - 상황에 따라 동적으로 하고 싶을땐 케이스별로 모든 생성자가 있어야 합니다. 빌더로는 불가능.
+  - 결국 Projections.constructor()를 통해 동적으로 원하는 필드만 주입하는것이 사실상 매우 번거롭기 때문에 전체 필드를 초기화하는 경우에만 사용합니다.
 
 ```java
 @Builder
@@ -53,10 +56,10 @@ public class repo {
 
 ## Projections.fields
 
-- 객체 생성 후, 초기화 된 필드에 2차적으로 값을 직접 주입한다
-- 주의사항: 기본적으로 객체를 생성 한 뒤, 필드에 직접 값을 주입하기 때문에, 필드가 final 변수일시 값 주입이 불가능하다.
-  - 때문에 fields()를 사용할 객체는 final 변수 + 필수 생성자를 사용할 수 없고, 일반 변수 + 기본 생성자 + 전체 생성자로 설계해야함
-  - field에 직접 접근하지만 접근제어자가 private인것은 문제되지 않는다.
+- 객체 생성 후, 초기화 된 필드에 2차적으로 값을 직접 주입합니다
+- 주의사항: 기본적으로 객체를 생성 한 뒤, 필드에 직접 값을 주입하기 때문에, 필드가 final 변수일시 값 주입이 불가능합니다.
+  - 때문에 fields()를 사용할 객체는 final 변수 + 필수 생성자를 사용할 수 없고, 일반 변수 + 기본 생성자 + 전체 생성자로 설계해야합니다
+  - field에 직접 접근하지만 접근제어자가 private인것은 문제되지 않습니다.
 
 ```java
 @Builder
@@ -91,9 +94,9 @@ public class repo {
 
 ## Projections.bean
 
-- 객체 생성 후, 초기화 된 필드에 2차적으로 setter를 통해 값을 주입한다
-- 주의사항: 필드가 final 변수일시 값 주입이 불가능하며, setter 메소드도 존재해야 한다.
-  - 때문에 bean()을 사용할 객체는 final 변수 + 필수 생성자를 사용할 수 없고, 일반 변수 + 기본 생성자 + 전체 생성자에 setter도 마련하도록 설계해야함
+- 객체 생성 후, 초기화 된 필드에 2차적으로 setter를 통해 값을 주입합니다
+- 주의사항: 필드가 final 변수일시 값 주입이 불가능하며, setter 메소드도 존재해야 합니다.
+  - 때문에 bean()을 사용할 객체는 final 변수 + 필수 생성자를 사용할 수 없고, 일반 변수 + 기본 생성자 + 전체 생성자에 setter도 마련하도록 설계해야합니다
 
 ```java
 @Builder
@@ -129,7 +132,7 @@ public class repo {
 
 ## as()
 
-- 매핑할 객체의 필드와 엔티티의 필드의 이름이 동일해야 하며, 다를시 .as()를 통해 매핑할 객체의 필드에 맞춰주면 된다.
+- 매핑할 객체의 필드와 엔티티의 필드의 이름이 동일해야 하며, 다를시 .as()를 통해 매핑할 객체의 필드에 맞춰주면 됩니다.
 
 ```java
 @Builder
@@ -164,9 +167,9 @@ public class repo {
 
 ## @QueryProjection 객체 만들기
 
-- 생성자에 @QueryProjection을 부여해 DTO QClass를 생성하여, Projections를 대신할 수도 있다.
-- final 변수를 동적으로 생성할 수 있으므로 constructor()와 fields()의 장점을 모두 취한다고 할 수 있다.
-- 하지만 Querydsl에 의존성이 생기는 객체가 되므로 유의한다.
+- 생성자에 @QueryProjection을 부여해 DTO QClass를 생성하여, Projections를 대신할 수도 있습니다.
+- final 변수를 동적으로 생성할 수 있으므로 constructor()와 fields()의 장점을 모두 취한다고 할 수 있습니다.
+- 하지만 Querydsl에 의존성이 생기는 객체가 되므로 유의합니다.
 
 ```java
 @Builder
@@ -222,11 +225,11 @@ public class repo {
 }
 ```
 
-- 단일 컬럼만 조회하여 해당 타입을 리턴할때 주의할 점은, 래퍼 클래스의 특징을 고려했을때 Projections.fields 대신 constructor를 사용해야 한다는것 
+- 단일 컬럼만 조회하여 해당 타입을 리턴할때 주의할 점은, 래퍼 클래스의 특징을 고려했을때 Projections.fields 대신 constructor를 사용해야 한다는것
 
 ## DTO 안의 객체에 매핑하기
 
-- `MemberDto`내의 `MemberAuthorityDto` 필드를 매핑해보자
+- `MemberDto`내의 `MemberAuthorityDto` 필드를 매핑해봅니다
 
 ```java
 @Builder
@@ -292,11 +295,11 @@ public class repo {
 }
 ```
 
-- Projections 안에 추가로 Projections를 넣어주고 as로 필드명과 동일한 alias를 지정해주면 된다
+- Projections 안에 추가로 Projections를 넣어주고 as로 필드명과 동일한 alias를 지정해주면 됩니다
 
 ## DTO 안의 컬렉션 객체에 매핑하기
 
-- `MemberDto`내의 `List<MemberSocialDto>` 필드를 매핑해보자
+- `MemberDto`내의 `List<MemberSocialDto>` 필드를 매핑해봅니다
 
 ```java
 @Builder
@@ -375,24 +378,24 @@ public class repo {
 }
 ```
 
-- 객체가 아닌 컬렉션은 두번에 나눠 처리를 하게 된다.
+- 객체가 아닌 컬렉션은 두번에 나눠 처리를 하게 됩니다.
   1. 필드 및 1:1 객체는 select절에 `Projection.fields()`내에 바로 매핑처리를 해주고
-  2. 1:N 컬렉션 객체는 select절에 `Projections.list()`로 분리하여 따로 받는다
-    ![img.png](img.png)
-    - 이때 바로 fetch 할시엔 `List<Tuple>`을 받게 되며 `Tuple` 내에는 1번과 2번 항목이 분리되어 들어있다
-    - 하지만 바로 Tuple을 받는것 대신 Querydsl의 `.transform()`을 이용하여 result aggregration 처리하여 바로 매핑 해줄수 있다
-  3. Querydsl의 `.transform()`을 이용하여 result aggregation을 진행해준다
-     - 이때 해야할 작업은 1:N 조인으로 인한 중복 레코드 제거, dto 매핑이다.
-  4. `.transform()`에 먼저 `GroupBy.groupBy(주체엔티티.컬럼)`을 넣어 그룹핑 시켜 중복 레코드를 처리해준다
-    - `.transform(GroupBy.groupBy(member.id))`
-    - 컬렉션을 매핑한다는것은 1:N 조인이 반드시 들어간다는 뜻이고, 결국 카테시안 곱으로 인한 주체 엔티티 중복 레코드가 생성되기 때문에
-  5. GroupBy.list()를 추가로 호출하여 dto 매핑해준다. 이때 GroupBy.list()안에는 매핑 처리할 Projections.fields()들을 작성해주면 된다.
-    - select절과 다른점은 이때는 하나의 Projection.Fields()안에 컬렉션도 모두 기입해준다. 이때 컬렉션은 GroupBy.list()로 매핑해준다 
-  
+  2. 1:N 컬렉션 객체는 select절에 `Projections.list()`로 분리하여 따로 받습니다
+     ![img.png](img.png)
+  - 이때 바로 fetch 할시엔 `List<Tuple>`을 받게 되며 `Tuple` 내에는 1번과 2번 항목이 분리되어 들어있습니다
+  - 하지만 바로 Tuple을 받는것 대신 Querydsl의 `.transform()`을 이용하여 result aggregration 처리하여 바로 매핑 해줄수 있습니다
+  3. Querydsl의 `.transform()`을 이용하여 result aggregation을 진행해줍니다
+    - 이때 해야할 작업은 1:N 조인으로 인한 중복 레코드 제거, dto 매핑입니다.
+  4. `.transform()`에 먼저 `GroupBy.groupBy(주체엔티티.컬럼)`을 넣어 그룹핑 시켜 중복 레코드를 처리해줍니다
+  - `.transform(GroupBy.groupBy(member.id))`
+  - 컬렉션을 매핑한다는것은 1:N 조인이 반드시 들어간다는 뜻이고, 결국 카테시안 곱으로 인한 주체 엔티티 중복 레코드가 생성되기 때문에
+  5. GroupBy.list()를 추가로 호출하여 dto 매핑해준다. 이때 GroupBy.list()안에는 매핑 처리할 Projections.fields()들을 작성해주면 됩니다.
+  - select절과 다른점은 이때는 하나의 Projection.Fields()안에 컬렉션도 모두 기입해준다. 이때 컬렉션은 GroupBy.list()로 매핑해줍니다
+
 # Projections.fields()르 매핑할 시 주의사항
 
-- 매핑을 엔티티가 아닌 DTO 클래스로 할 경우 fetchJoin()을 사용할 수 없다.
-  - 페치조인은 엔티티 그래프를 참고하는것이기 때문에 엔티티가 아닌 클래스를 projection 한 경우 사용할 수 없다
+- 매핑을 엔티티가 아닌 DTO 클래스로 할 경우 fetchJoin()을 사용할 수 없습니다.
+  - 페치조인은 엔티티 그래프를 참고하는것이기 때문에 엔티티가 아닌 클래스를 projection 한 경우 사용할 수 없습니다
 
 ### 관련 참고 문서
 
