@@ -1,3 +1,5 @@
+# EntityManager란
+
 - `EntityManager`는 JPA(Java Persistence API)에서 **엔티티를 관리하고 데이터베이스와 상호작용하는 핵심 인터페이스**.
 - 엔티티의 생명주기(생성, 읽기, 수정, 삭제)를 관리하며, 영속성 컨텍스트(Persistence Context라는 메커니즘을 통해 **엔티티 객체와 데이터베이스의 데이터를 동기화**하는 역할을 함.
 - **`EntityManager`의 주요 역할**
