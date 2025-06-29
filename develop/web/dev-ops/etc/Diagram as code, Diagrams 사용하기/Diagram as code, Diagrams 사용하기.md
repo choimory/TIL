@@ -1,4 +1,3 @@
-
 # Introduce
 
 - https://diagrams.mingrammer.com/
@@ -63,11 +62,11 @@ python web_diagram.py
 # code 상세
 
 - 크게 다섯가지로 나눌수 있음
-    1. **노드(Node):** EC2, RDS, S3, Redis, Kubernetes Pod 등 리소스를 뜻하는 아이콘
-    2. **엣지(Edge):** >> 또는 << 로 노드를 연결 (→ 또는 ←)
-    3. **그룹(Cluster):** 리소스들을 박스로 묶어서 계층 표현
-    4. **방향(Direction):** → ↓ 등으로 배치 방향 설정
-    5. **아이콘 카테고리:** AWS, Azure, GCP, Kubernetes, On-Prem 등
+  1. **노드(Node):** EC2, RDS, S3, Redis, Kubernetes Pod 등 리소스를 뜻하는 아이콘
+  2. **엣지(Edge):** >> 또는 << 로 노드를 연결 (→ 또는 ←)
+  3. **그룹(Cluster):** 리소스들을 박스로 묶어서 계층 표현
+  4. **방향(Direction):** → ↓ 등으로 배치 방향 설정
+  5. **아이콘 카테고리:** AWS, Azure, GCP, Kubernetes, On-Prem 등
 
 ## 1. 기본 문법
 
@@ -222,7 +221,12 @@ class CustomNode(Node):
 - `diagrams.onprem.client.Users`, `Laptop`
 - `diagrams.generic.device.Mobile`, `Tablet`
 - 그 외 전체 목록:
-    - https://diagrams.mingrammer.com/docs/nodes/aws
+  - https://diagrams.mingrammer.com/docs/nodes/aws
+
+# 그 외
+
+- python 실행할때의 venv는 프로젝트별 라이브러리 및 환경 저장하는곳
+- `source vent/bin/active`한거 신경쓰면 그냥 `deactive`해주면 되지만 어차피 큰 의미없고 안쓰면 프로젝트 디렉토리 지우면 끝
 
 # ref
 
